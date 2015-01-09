@@ -1,0 +1,286 @@
+/*
+TITLE: Code template 1.0
+Copywright [date] LLPA 
+## Need and open source license statement here
+
+**********FIND THE CODE HERE *********************
+Source code location: put url here
+Open source code attributions:
+	Name: 		 URL
+************ CODING STYLES ************************
+Coding styles: use these general styles. If other styles are used add them to this section as exceptions
+ ## Classes: 
+ Class names are nouns in UpperCamelCase, with the first letter of every word capitalised. 
+ Use whole words avoid acronyms and abbreviations (unless the abbreviation is much more widely used than the long form, such as URL or HTML).  
+ 
+ ## Methods & functions: 
+ Methods are verbs in lowerCamelCase; that is, with the first letter lowercase and the first letters of subsequent words in uppercase. 
+ 
+ ## Variables:
+ Local variables, instance variables, and class variables are also written in lowerCamelCase, starting with with underscore (_). 
+ Variable names should be short yet meaningful. The choice of a variable name should be mnemonic,
+ that is, designed to indicate to the casual observer the intent of its use. 
+ One-character variable names should be avoided except for temporary "throwaway" variables. 
+ 
+ ## Constants: 
+ Written in uppercase characters separated by underscores. 
+ Constant names may also contain digits if appropriate, but not as the first character.
+ 
+ ## Readability:
+ -In general you are writing this code as a story that a diverse audience must be able to read. 
+ -As the author your role is not to encrypt the story, rather to make it highly readable
+ -Use #define to define and assign constants using descriptive names
+ -Use #define to define and assign ports using descriptive names
+ -Do not hard code values or constants rather use variable definitions. 
+	-If you have to hard code a variable describe why and how to modify if necessary  
+ -Do not use compacted syntax, expand code to make is simpler to read
+ -Clearly incidate the opening and closure of conditional structures using comments next to braces  
+ -Indent braces under (not inline) flow control structures left justified under the main structures element 
+ -Use techniques that are easily understandble by a reader with average coding skills
+ -Don't use tricks and techniques that arent necessary, obvious and understandable. If you have to then document as described below 
+ -Use comments as psuedocode, comments should tell the story of how the code works, without having to read the code
+ -Use /* ..*/ as a timeout to describe a difficult area of code to understand
+ -Use /* ..*/ as a timeout to describe an area of code that had a tough to find bug
+ -Use /* ..*/ as a timeout to include as descrition of a bug and solution
+ -Use /* ..*/ as a timeout to describe any area of code that is alogorythmic
+ -Use /* ..*/ as a timeout to describe any "trick", syntax, technique not recognizable by an average programming skill
+ -Use /* ..*/ as a timeout to describe a timing dependent area of code
+	Example:
+	If (done == False)
+	{ // fu was done so do this "trick"
+	 	matrix[MATRIX_EYES].drawBitmap(0, 0,blinkImg[
+(blinkCountdown < sizeof(blinkIndex))? blinkIndex[blinkCountdown] : 00
+ ], 8, 8, LED_ON);
+		/* TIMEOUT: the ? in the above statement is the "ternary operator" whose syntac is [condition ? value_if_true : value_if_false].
+		embeded in a function call to define the blinkimages drawing matrix array address).
+		http://en.wikipedia.org/wiki/%3F:#C.2B.2B
+		*/
+	} // fu was not done so do the next statement
+ 
+
+ 
+************ START DOCUMENTATION *******************
+-----------------------
+Architectural definition: describe the logical architecture
+ ## What the system is: Describe the blocks that make up the architecture
+
+ ## What the system does: Describe the theory of operation for the blocks and how they iteract
+---------------------
+Hardware: Describe the physical system
+ ## Schematic: 
+   Location/tool: location of the schematic source and name of tool used
+   Name: Name of project files
+   On the schematic inlude for all parts or subassemblies:
+    	Part Name:
+	Part#
+	Vendor:
+	Speed:
+	Purchase URL: 
+ ## I/O Wiring: 
+  Inputs/Output connections: 
+   Analog inputs 
+    Signal Name     Port
+           Name:    port name
+   Digital Outputs:-------------- 
+    Signal Name     Port  Function 
+           Name:    D?    what is does
+    OnboardLED(red) D?    what it does 
+  Add standards for BT and wireless hardware interfaces here
+ ## Mechanics: Describe any special mechanical interfaces 
+----------------
+Software Build Process: Describe build software modules and tools
+  ## TOOL CHAIN: Describe how the software was built using what tools
+    EXAMPLE:
+    -The ProTrinket is compatible with the arduino UNO except for missing pin 2 & 7
+    -ProTrinket needs to be connected via the FDDI cable for serial console use
+    -Uncomment the DEBUG #define to write to the serial console
+    IDE: describe the how to build the code using the IDE 
+	 identify any quirks in using the IDE with the selected microcontroller
+	Example
+      -Use the aidafruit 1.0.5 version IDE, which is modified for trinkets
+      -Will not instantiate a serial port so no need to set up com port and it is greyed out
+      -Arduino IDE settings:
+        -Programmer: use FDDI
+        -Board: select ProTrinket FDDI
+        -Errors: will get a compile error on Serial.begin function call if the incorrect board selected
+  ## Coding notes: these are general coding notes intended to pass on learnings and techniques
+      -Inputs need to be tied low or high otherwise they float (use 10k pulldown or use internal pullups) 
+      -Turn on the input pullups by writing to an input port, this makes the inputs a LOW true activation
+      Example: digitalWrite(D1, HIGH);       //when you write HIGH to an input pin the  pullup is activated
+      -To save memory don't use "if" statements
+      -Esc characters: ("\t"),("\n")
+  ## Describe Non-volitile (EEPROM) structure:
+  	ADR    DATA NAME        BYTE
+  	x00    lower _fu	Low
+  	x01    upper _fu   	High
+  	x02    lower _fubar  	Low
+  	x03    upper _fubar 	High
+  ## Add standards for BT and wireless software interfaces here
+*/
+----------------------
+Change log records: describe each change associated with a release number
+	####### A change log record format
+	Release #:
+	Date of release:
+	Description of change:
+	******
+Backlog: describe features/items that are backloged
+	####### A backlog record format
+	Expected Release #:
+	Date of discovery:
+	Description of backlog item:
+	******
+
+*/
+//---------------------END DOCUMENTATION -------------------
+
+// =================== START OF CODE =======================
+/* Includes:
+#include <EEPROM.h>   // for EPROM OPERATIONS
+#include <include name>
+
+//Define CONSTANTS (format = UPPERCASE)
+#define DEBUG			// uncomment for debugging mode
+#define SIM			// uncomment for simulation mode
+#define VERBOSE			// uncomment for console messages
+
+## Structures for inline directives used with the above, copy in line with the code were used
+
+/*
+Format for DEBUG directives used in line with code:
+#ifdef DEBUG
+  //stuff to do in here  
+#endif
+*/
+
+/*
+Format for SIM directives used in line with code:
+#ifdef SIM
+  //stuff to do in here  
+#endif
+*/
+
+/*
+Format for VERBOSE directives used in line with code:
+#ifdef VERBOSE
+  //stuff to do in here  
+#endif
+*/
+
+//set version #
+#define VERSION "Name of program 1.0" 
+/*
+Port Assignments:
+Define input and output pin #'s
+*/
+	#define Port1 3
+	#define PORT2 5
+	#define PORT3 6
+	#define PORT4 9
+	//#define ONBOARD 13   //the onboard led (red on Trinket Pro)
+
+/*Delay constants
+  	#define DELAY1 1000  //
+  	#define DELAY2 500
+ 	#define DELAY3 100 
+*/
+  
+/*LIBRARY INSTANTIATIONS
+  No libraries were used
+*/
+  
+//VARIABLE DEFINITIONS & INITIALIZATIONS
+/*General variables (format = _lowerCamelCase)
+  int _variableName; 
+  byte _eeLowByte;		// byte conversion variables for EEPROM
+  byte _eeHighByte;
+*/
+
+/* ===================== INITIALIZE =========================
+Initialize:Describe the intitialization process
+ ## Initiatilization checklist:
+	Input/output port control
+	Initialize serial debug port 
+	Initialize radios
+	Initialize libraries
+*/
+void setup()
+{
+  #ifdef DEBUG
+   Serial.begin(9600); // setup serial port if in debug mode
+  #endif
+//Initialize I/O
+   //Outputs
+   pinMode(PINNAME, OUTPUT);
+   pinMode(PINNAME, OUTPUT);
+   pinMode(PINNAME, OUTPUT);
+   pinMode(PINNAME, OUTPUT);
+   //Inputs   
+   pinMode(PINNAME, INPUT);
+   pinMode(PINNAME, INPUT_PULLUP); 
+   /* Get values from non-vol for use later
+    _eeLowByte = EEPROM.read(0);
+    _eeHighByte = EEPROM.read(1);
+    _eePromValue=((EELowByte << 0) & 0xFF) + ((EEHighByte << 8) & 0xFF00);
+   */
+} //END SETUP
+
+/*==================== MAIN ==================================
+The main executive functions go here
+*/
+
+void loop()
+{
+#ifdef DEBUG
+  //if in debug mode do this stuff 
+#endif
+
+// main stuff goes here
+
+} //--------------- END MAIN LOOP
+
+
+/* ================== FUNCTIONS (format = lowerCamelCase) =====================
+Description:
+Pased Paramters:
+void functionName()
+{
+return;
+}
+*/
+
+/*Print dump tables template
+  Parameters: none
+  Return value: none
+*/
+void dumpLog()
+{
+    // Print table header
+    Serial.println("----START DUMP----");
+    Serial.println("***Table title ***");
+    Serial.print("Col 1 Title");
+    Serial.print("\t");
+    Serial.print ("Column2 title");
+    Serial.print("\t");
+    Serial.println ("Column3 Title");
+	// print a record
+    Serial.print(variable1);
+    Serial.print("\t");
+    Serial.print("\t");
+    Serial.print(tvariable2);
+    Serial.print("\t");
+    Serial.print("\t");
+    Serial.println(variable3);
+    Serial.println("---END DUMP--- ");
+    Serial.println ();
+  return;
+ }
+/* Writing to EEPROM
+  // dissasemble word into two bytes for writing to EEPROM
+  _eeLowByte=((variable >> 0) & 0xFF);  //get just the lower byte
+  _eeHighByte=((variable >> 8)& 0xFF);  //shift to get get the upper byte
+  word_value = ((EELowByte << 0) & 0xFF) + ((EEHighByte << 8) & 0xFF00); //reassemble the word
+  EEPROM.write(0,EELowByte);	// write to EEPROM in sequence
+  EEPROM.write(1,EEHighByte);
+*/
+  
