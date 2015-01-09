@@ -30,12 +30,11 @@
 		we need to create one.
 
 */
-#import "EEPROM.h"
-#import "SPI.h"
-#import "EthernetV2_0.h"
-#import "Regexp.h"
-#import "YASP.h"
-#import "MemoryFree.h"
+#include "EEPROM.h"
+#include "SPI.h"
+#include "EthernetV2_0.h"
+#include "YASP.h"
+#include "MemoryFree.h"
 
 
 /* ============================================================================
