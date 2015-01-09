@@ -1,9 +1,11 @@
 /* ============================================================================
 	@title: NPSKiosk
+	@summary:
 
 	@copyright: (c) 2015 LLPA. ALL RIGHTS RESERVED
 	@version: 1.0
 
+	@organization: LLPA
 	@author:  Gregory L. Bodine
 	@created: 2015-01-07
 
@@ -21,19 +23,26 @@
 		Date of discovery:
 		Description of backlog item:
 		******
+	
+	@note:
+ 
+	@license: 
+		we need to create one.
+
 */
 #import "EEPROM.h"
 #import "SPI.h"
 #import "EthernetV2_0.h"
 #import "Regexp.h"
 #import "YASP.h"
+#import "MemoryFree.h"
 
 
 /* ============================================================================
 	@section:  Declaration
 */
-PGM_P _version = "1.0";
-PGM_P _copyright = "(c) 2015 LLPA. ALL RIGHTS RESERVED";
+const char _version[]  = "1.0";
+const char _copyright[]  = "(c) 2015 LLPA. ALL RIGHTS RESERVED";
 
 boolean debugState = false;
 
@@ -177,6 +186,10 @@ void setup()
 {
   // Initialize the serial port.
   Serial.begin(115200);
+
+  Serial.print("Version: "); Serial.println(_version );
+  Serial.print("checkMemory()="); Serial.println(checkMemory());
+
 
 }
 
