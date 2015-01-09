@@ -18,7 +18,8 @@
 
 
  */
-
+#ifndef __REGEXP_H
+#define __REGEXP_H
 
 // Maximum of captures we can return. 
 // Increase if you need more, decrease to save memory.
@@ -127,3 +128,4 @@ public:
   
 } MatchState;
 
+#endif // __REGEXP_H

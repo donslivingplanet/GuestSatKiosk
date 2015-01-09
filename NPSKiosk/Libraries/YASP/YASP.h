@@ -24,6 +24,7 @@
 #define __YASP_H
 
 #include <Arduino.h>
+#include <Regexp.h>
 
 // YASP VERSION ALPHA 1
 
