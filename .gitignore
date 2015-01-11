@@ -2,3 +2,6 @@
 .pydevproject
 *.pyc
 .settings/
+.cproject
+.ino.cpp
+Release
