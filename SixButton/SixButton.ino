@@ -48,10 +48,9 @@ byte buttons[] = {14, 15, 16, 17, 18, 19}; // the analog 0-5 pins are also known
 // This handy macro lets us determine how big the array up above is, by checking the size
 #define NUMBUTTONS sizeof(buttons)
 
-// we will track if a button is just pressed, just released, or 'currently pressed'
+// we will track if a button is 'currently pressed'
 byte pressed[NUMBUTTONS];
-byte justpressed[NUMBUTTONS];
-byte justreleased[NUMBUTTONS];
+
 
 //=============================================================================
 /*!
@@ -81,21 +80,15 @@ void setup() {
 	}
 }
 
-
+//-----------------------------------------------------------------------------
+/*!
+	@brief:
+	@returns:  Nothing
+*/
 void loop() {
-	check_switches(); // when we check the switches we'll get the current state
+	checkButtons(); // when we check the switches we'll get the current state
 
 	for (byte i = 0; i < NUMBUTTONS; i++) {
-		if (justpressed[i]) {
-			Serial.print(i, DEC);
-			Serial.println(" Just pressed");
-			// remember, check_switches() will CLEAR the 'just pressed' flag
-		}
-		if (justreleased[i]) {
-			Serial.print(i, DEC);
-			Serial.println(" Just released");
-			// remember, check_switches() will CLEAR the 'just pressed' flag
-		}
 		if (pressed[i]) {
 			Serial.print(i, DEC);
 			Serial.println(" pressed");
@@ -104,8 +97,12 @@ void loop() {
 	}
 }
 
-
-void check_switches() {
+//-----------------------------------------------------------------------------
+/*!
+	@brief:
+	@returns:  Nothing
+*/
+void checkButtons() {
 	static byte previousstate[NUMBUTTONS];
 	static byte currentstate[NUMBUTTONS];
 	static long lasttime;
@@ -125,15 +122,9 @@ void check_switches() {
 	lasttime = millis();
 
 	for (i = 0; i < NUMBUTTONS; i++) { // when we start, we clear out the "just" indicators
-		justreleased[i] = 0;
 		currentstate[i] = digitalRead(buttons[i]);   // read the button
 
 		if (currentstate[i] == previousstate[i]) {
-			if ((pressed[i] == LOW) && (currentstate[i] == LOW)) {
-				justpressed[i] = 1;  // just pressed
-			} else if ((pressed[i] == HIGH) && (currentstate[i] == HIGH)) {
-				justreleased[i] = 1;  // just released
-			}
 			pressed[i] = !currentstate[i]; // remember, digital HIGH means NOT pressed
 		}
 
