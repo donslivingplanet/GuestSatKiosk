@@ -49,7 +49,6 @@ byte buttons[] = {14, 15, 16, 17, 18, 19}; // the analog 0-5 pins are also known
 #define NUMBUTTONS sizeof(buttons)
 
 // we will track if a button is 'currently pressed'
-byte pressed[NUMBUTTONS];
 
 
 //=============================================================================
@@ -89,45 +88,44 @@ void setup() {
 	@throws: nothing
 */
 void loop() {
-	checkButtons(); // when we check the switches we'll get the current state
+	int btn;
 
-	for (byte i = 0; i < NUMBUTTONS; i++) {
-		if (pressed[i]) {
-			Serial.print(i, DEC);
-			Serial.println(" pressed");
-			// is the button pressed down at this moment
-		}
+	if ( (btn=checkButtons()) != 0 ) {
+		Serial.print(F("you pressed button number: "));
+		Serial.println(btn, DEC);
 	}
 }
 
 //-----------------------------------------------------------------------------
 /*!
-	@brief:
-	@returns: nothing
+ 	checkButtons
+	@brief:  check all of the buttons to see if they have been pressed or not
+	@returns: the first button in array presses.  0 means no button was presses.
 	@throws: nothing
 */
-void checkButtons() {
-	static byte previousstate[NUMBUTTONS];
-	static byte currentstate[NUMBUTTONS];
-	static unsigned long lasttime = millis();
+byte checkButtons() {
+	byte pstate[NUMBUTTONS];
+	byte cstate[NUMBUTTONS];
 	byte i;
 
 
-	if ((millis() - lasttime) < DEBOUNCE) {
-		// not enough time has passed to debounce
-		return;
+	for (i = 0; i < NUMBUTTONS; i++) {
+		pstate[i] = !digitalRead(buttons[i]);   // read the button and rev polarity because of pullup register
 	}
 
-	// ok we have waited DEBOUNCE milliseconds, lets reset the timer
-	lasttime = millis();
+	delay(DEBOUNCE);                            //wait DEBOUNCE time.
 
-	for (i = 0; i < NUMBUTTONS; i++) { // when we start, we clear out the "just" indicators
-		currentstate[i] = digitalRead(buttons[i]);   // read the button
+	for (i = 0; i < NUMBUTTONS; i++) {
+		cstate[i] = !digitalRead(buttons[i]);   // read the button and rev polarity because of pullup register
+	}
 
-		if (currentstate[i] == previousstate[i]) {
-			pressed[i] = !currentstate[i]; // remember, digital HIGH means NOT pressed
+	for (i = 0; i < NUMBUTTONS; i++) {
+		if (cstate[i] == pstate[i]) {
+			if (cstate[i] == HIGH) {
+				return i;
+			}
 		}
-
-		previousstate[i] = currentstate[i]; // keep a running tally of the buttons
 	}
+
+	return 0;
 }
