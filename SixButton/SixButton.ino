@@ -1,7 +1,7 @@
 //=============================================================================
 /*!
 	@title: SixButton
-	@summary:
+	@brief:
 
 	@copyright: (c) 2015 LLPA. ALL RIGHTS RESERVED
 	@version: 1.0
@@ -55,7 +55,9 @@ byte pressed[NUMBUTTONS];
 //=============================================================================
 /*!
 	@section:  Main
-	@brief
+	@brief:
+	@returns: nothing
+	@throws: nothing
 */
 void setup() {
 
@@ -83,7 +85,8 @@ void setup() {
 //-----------------------------------------------------------------------------
 /*!
 	@brief:
-	@returns:  Nothing
+	@returns: nothing
+	@throws: nothing
 */
 void loop() {
 	checkButtons(); // when we check the switches we'll get the current state
@@ -100,20 +103,17 @@ void loop() {
 //-----------------------------------------------------------------------------
 /*!
 	@brief:
-	@returns:  Nothing
+	@returns: nothing
+	@throws: nothing
 */
 void checkButtons() {
 	static byte previousstate[NUMBUTTONS];
 	static byte currentstate[NUMBUTTONS];
-	static long lasttime;
+	static unsigned long lasttime = millis();
 	byte i;
 
-	// we wrapped around, lets just try again
-	//if (millis()) {
-	//	lasttime = millis();
-	//}
 
-	if ((lasttime + DEBOUNCE) > millis()) {
+	if ((millis() - lasttime) < DEBOUNCE) {
 		// not enough time has passed to debounce
 		return;
 	}
